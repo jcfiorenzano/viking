@@ -1,0 +1,57 @@
+import random
+from src.commands.Executor import Executor
+from src.security import Crypt
+from src.persistance import Persistance
+from src.model import LoginInfo
+
+
+class AddSecretExecutor(Executor):
+    def __init__(self, password, argument_tuple):
+        super(AddSecretExecutor, self).init(password)
+        site = argument_tuple[0]
+        username = argument_tuple[1]
+        password = len(argument_tuple) == 3 if argument_tuple[2] else None
+
+        self.loginInfo = LoginInfo(site, username, password)
+
+    def execute(self):
+        show_password = self.loginInfo.password is None
+        password = self.password if self.password else self._generate_password()
+
+        self.loginInfo.password = Crypt.encript(password)
+
+        Persistance.save(self.loginInfo)
+
+        if show_password:
+            return password
+
+    def _generate_password(self):
+        password = [None] * 12
+
+        valid_symbols = ["-", "@", "%", ",", "."]
+
+        for i in range(0, 3):
+            pos = random.randint(0,12)
+            while password[pos] is not None:
+                pos = random.randint(0, 12)
+            password[pos] = valid_symbols[random.randint(0, len(valid_symbols)-1)]
+
+        for i in range(0, 4):
+            pos = random.randint(0, 12)
+            while password[pos] is not None:
+                pos = random.randint(0, 12)
+            password[pos] = chr(random.randint(ord('A'), ord('Z')))
+
+        for i in range(0, 3):
+            pos = random.randint(0, 12)
+            while password[pos] is not None:
+                pos = random.randint(0, 12)
+            password[pos] = chr(random.randint(ord('a'), ord('z')))
+
+        for i in range(0, 2):
+            pos = random.randint(0, 12)
+            while password[pos] is not None:
+                pos = random.randint(0, 12)
+            password[pos] = str(random.randint(0, 9))
+
+        return "".join(password)
