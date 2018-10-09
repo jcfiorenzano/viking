@@ -1,28 +1,26 @@
 import random
-from src.commands.Executor import Executor
-from src.security import Crypt
-from src.persistance import Persistance
-from src.model import LoginInfo
+from src.security.Crypt import Crypt
+from src.persistance.Persistance import Persistance
+from src.model.LoginInfo import LoginInfo
 
 
-class AddSecretExecutor(Executor):
-    def __init__(self, password, argument_tuple):
-        super(AddSecretExecutor, self).init(password)
+class AddCommand:
+    def __init__(self, argument_tuple):
         site = argument_tuple[0]
         username = argument_tuple[1]
-        password = len(argument_tuple) == 3 if argument_tuple[2] else None
+        password = argument_tuple[2] if len(argument_tuple) == 3 else None
 
         self.loginInfo = LoginInfo(site, username, password)
 
-    def execute(self):
-        show_password = self.loginInfo.password is None
-        password = self.password if self.password else self._generate_password()
+    def execute(self, user_password):
+        missing_password = self.loginInfo.password is None
+        password = self.loginInfo.password if not missing_password else self._generate_password()
 
-        self.loginInfo.password = Crypt.encript(password)
+        self.loginInfo.password = Crypt().encrypt(user_password, plain_message=password)
 
-        Persistance.save(self.loginInfo)
+        Persistance().save(self.loginInfo)
 
-        if show_password:
+        if missing_password:
             return password
 
     def _generate_password(self):

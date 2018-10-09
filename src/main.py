@@ -1,6 +1,7 @@
 import getpass
+from src.commands.AddCommand import AddCommand
 from src.exceptions.Exceptions import WrongPasswordException
-from src.argumentParser import ArgumentParser
+from src.argumentParser.ArgumentParser import ArgumentParser
 
 '''
 COMMANDS:
@@ -25,22 +26,21 @@ COMMANDS:
 
 def main(argv):
     try:
-        parsed_object = ArgumentParser().parse(argv)
+        parser = ArgumentParser()
+        parsed_object = parser.parse(argv)
         password = ask_password()
 
         if parsed_object.add:
-            if len(parsed_object.add) == 3:
-                add_password_site(site=parsed_object.add[0], username=parsed_object.add[1], password=parsed_object[2])
-            if len(parsed_object.add) == 2:
-                new_password = create_password()
-                add_password_site(site=parsed_object.add[0], username=parsed_object.add[1], password=new_password)
-                print(new_password)
+            executor = AddCommand(parsed_object.add)
+            executor.execute(password)
         elif parsed_object.show:
             print()
         elif parsed_object.delete:
             print()
-
-    except Exception:
+    except WrongPasswordException:
+        print("Password incorrect")
+    # except Exception:
+    #     print("An unexpected exception was raised")
 
 def ask_password():
     password = getpass.getpass()
