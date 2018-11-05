@@ -1,2 +1,8 @@
 .idea/
 viking.bin
+src/argumentParser/__pycache__/
+src/commands/__pycache__/
+src/exceptions/__pycache__/
+src/model/__pycache__/
+src/persistance/__pycache__/
+src/security/__pycache__/
