@@ -1,17 +1,21 @@
 import os
-from src.model import LoginInfo
 import pickle
 
 class Persistance:
     def __init__(self):
-        self.FILE_NAME = "viking.bin"
-        self.path = os.path.dirname(__file__)+"/../"+self.FILE_NAME
+        self._FILE_NAME = "viking.bin"
+        self._path = os.path.dirname(__file__) + "/../" + self._FILE_NAME
+        self._SERIALIZE_PICKLE_PROTOCOL = 3
 
     def save(self, login):
-        PYTHON_BINARY_PROTOCOL = 3
-
-        with open(self.path, 'ab') as passwordFile:
-            pickle.dump(login, passwordFile, PYTHON_BINARY_PROTOCOL)
+        with open(self._path, 'wb') as passwordFile:
+            login_dictionary = self.load()
+            login_dictionary[login.site] = login
+            pickle.dump(login_dictionary, passwordFile, self._SERIALIZE_PICKLE_PROTOCOL)
 
     def load(self):
-        return LoginInfo()
+        with open(self._path, 'rb') as passwordFile:
+            try:
+                return pickle.load(passwordFile)
+            except EOFError:
+                return {}
