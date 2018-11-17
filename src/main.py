@@ -1,7 +1,10 @@
 import getpass
 from src.commands.AddCommand import AddCommand
+from src.commands.ShowCommand import ShowCommand
+from src.exceptions.Exceptions import UserNotAuthenticateException
 from src.exceptions.Exceptions import WrongPasswordException
 from src.argumentParser.ArgumentParser import ArgumentParser
+from src.security.SecurityManager import SecurityManager
 
 '''
 COMMANDS:
@@ -24,33 +27,35 @@ COMMANDS:
         -d username site
 '''
 
+
 def main(argv):
     try:
         parser = ArgumentParser()
         parsed_object = parser.parse(argv)
-        password = ask_password()
+        authenticate()
 
         if parsed_object.add:
             executor = AddCommand(parsed_object.add)
-            executor.execute(password)
         elif parsed_object.show:
-            print()
+            executor = ShowCommand(parsed_object.show)
         elif parsed_object.delete:
             print()
+        executor.execute()
     except WrongPasswordException:
         print("Password incorrect")
+    except UserNotAuthenticateException:
+        print("Fail to authenticate the user")
     # except Exception:
-    #     print("An unexpected exception was raised")
+    # print("An unexpected exception was raised")
 
-def ask_password():
+
+def authenticate():
+    security = SecurityManager()
     password = getpass.getpass()
-    if not is_password_valid(password):
-        raise WrongPasswordException()
-    return password
+    return security.authenticate(password)
 
-def is_password_valid(password):
-    return True
 
 if __name__ == "__main__":
     ''' main(sys.argv[1:]) '''
     main("--add site username password".split(" "))
+    main("--show site".split(" "))
