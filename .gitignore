@@ -1,4 +1,6 @@
 .idea/
+.DS_Store
+src/.DS_Store
 viking.bin
 src/argumentParser/__pycache__/
 src/commands/__pycache__/
