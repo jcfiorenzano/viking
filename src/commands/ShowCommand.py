@@ -8,11 +8,15 @@ class ShowCommand:
 
     def execute(self):
         login_info_dictionary = Persistance().load()
-
+        result = []
         if not self.site_url:
             for login_key in login_info_dictionary.keys():
-                print(login_key)
+                login = login_info_dictionary[login_key]
+                login.password = SecurityManager().decrypt(login.password)
+                result.append(login)
         else:
-            login_info = login_info_dictionary[self.site_url]
-            login_info.password = SecurityManager().decrypt(login_info.password)
-            print(login_info.toString())
+            login = login_info_dictionary[self.site_url]
+            login.password = SecurityManager().decrypt(login.password)
+            result.append(login)
+
+        return result

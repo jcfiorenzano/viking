@@ -35,18 +35,32 @@ def main(argv):
         authenticate()
 
         if parsed_object.add:
-            executor = AddCommand(parsed_object.add)
+            _add(parsed_object.add)
         elif parsed_object.show:
-            executor = ShowCommand(parsed_object.show)
+            _show(parsed_object.show)
         elif parsed_object.delete:
             print()
-        executor.execute()
+
     except WrongPasswordException:
         print("Password incorrect")
     except UserNotAuthenticateException:
         print("Fail to authenticate the user")
     # except Exception:
     # print("An unexpected exception was raised")
+
+
+def _add(parsed_object):
+    executor = AddCommand(parsed_object.add)
+    missing_password = executor.execute()
+    if missing_password is not None:
+        print("Your password for this site is: "+ missing_password)
+
+
+def _show(parsed_object):
+    executor = ShowCommand(parsed_object.show)
+    logins = executor.execute()
+    for login in logins:
+        print(login.toString())
 
 
 def authenticate():
