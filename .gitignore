@@ -1,7 +1,7 @@
 .idea/
 .DS_Store
 src/.DS_Store
-viking.bin
+viking.vik
 src/argumentParser/__pycache__/
 src/commands/__pycache__/
 src/exceptions/__pycache__/
