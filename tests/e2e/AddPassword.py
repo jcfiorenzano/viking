@@ -18,12 +18,12 @@ class TestAddLoginInfo(unittest.TestCase):
         add_command.execute()
 
         show_command = ShowCommand(None)
-        stored_login = show_command.execute()
+        stored_logins = show_command.execute()
 
-        self.assertTrue(len(stored_login) == 1)
-        self.assertTrue(stored_login[0].site == site)
-        self.assertTrue(stored_login[0].username == username)
-        self.assertTrue(stored_login[0].password == password)
+        self.assertTrue(len(stored_logins) == 1)
+        self.assertTrue(stored_logins[0].site == site)
+        self.assertTrue(stored_logins[0].username == username)
+        self.assertTrue(stored_logins[0].password == password)
 
     @classmethod
     def tearDownClass(cls):
