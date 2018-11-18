@@ -1,6 +1,7 @@
 import getpass
 from src.commands.AddCommand import AddCommand
 from src.commands.ShowCommand import ShowCommand
+from src.commands.DeleteCommand import DeleteCommand
 from src.exceptions.Exceptions import UserNotAuthenticateException
 from src.exceptions.Exceptions import WrongPasswordException
 from src.argumentParser.ArgumentParser import ArgumentParser
@@ -24,7 +25,7 @@ COMMANDS:
         -s [site]
     Delete
         Remove an entry of the database
-        -d username site
+        -d site
 '''
 
 
@@ -39,7 +40,7 @@ def main(argv):
         elif parsed_object.show:
             _show(parsed_object.show)
         elif parsed_object.delete:
-            print()
+            _delete(parsed_object.delete)
 
     except WrongPasswordException:
         print("Password incorrect")
@@ -53,7 +54,7 @@ def _add(parsed_object):
     executor = AddCommand(parsed_object.add)
     missing_password = executor.execute()
     if missing_password is not None:
-        print("Your password for this site is: "+ missing_password)
+        print("Your password for this site is: " + missing_password)
 
 
 def _show(parsed_object):
@@ -61,6 +62,11 @@ def _show(parsed_object):
     logins = executor.execute()
     for login in logins:
         print(login.toString())
+
+
+def _delete(parsed_object):
+    executor = DeleteCommand(parsed_object)
+    executor.execute()
 
 
 def authenticate():

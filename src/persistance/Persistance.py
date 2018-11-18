@@ -1,5 +1,6 @@
 import pickle
 import src.config as config
+from src.exceptions.Exceptions import SiteNotFound
 
 class Persistance:
     def __init__(self):
@@ -17,3 +18,14 @@ class Persistance:
                 return pickle.load(passwordFile)
             except EOFError:
                 return {}
+
+    def delete(self, site):
+        logins = self.load()
+
+        if site in logins:
+            del(logins[site])
+        else:
+            raise SiteNotFound
+
+        with open(config.VIKING_FILE_PATH, 'wb') as passwordFile:
+            pickle.dump(logins, passwordFile, self._SERIALIZE_PICKLE_PROTOCOL)

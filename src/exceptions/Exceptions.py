@@ -4,3 +4,7 @@ class WrongPasswordException(Exception):
 
 class UserNotAuthenticateException(Exception):
     pass
+
+
+class SiteNotFound(Exception):
+    pass
