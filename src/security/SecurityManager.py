@@ -11,9 +11,12 @@ from src.exceptions.Exceptions import WrongPasswordException
 
 
 class SecurityManager:
+    def __init__(self):
+        self._BYTE_ENCODING_FORMAT = "utf8"
 
     def create_account(self, password):
-        # Todo: store password
+        # Todo: store password and store key
+        self._get_derivaded_key(password="123")
         pass
 
     def authenticate(self, password):
@@ -25,16 +28,16 @@ class SecurityManager:
     def get_key(self):
         # Todo: need to return the key that we stored
         if self._is_authenticate():
-            return self._get_derivaded_key(password="123")
+            return b'io_CKnCA0ziUVTaT2KEYuXIre6bQoQTvY6mqeKEtuZc='
         raise UserNotAuthenticateException()
 
     def encrypt(self, plain_message):
         fernet = Fernet(self.get_key())
-        return fernet.encrypt(bytes(plain_message, "utf8"))
+        return fernet.encrypt(bytes(plain_message, self._BYTE_ENCODING_FORMAT))
 
     def decrypt(self, encrypted_message):
         fernet = Fernet(self.get_key())
-        return fernet.decrypt(encrypted_message)
+        return bytes.decode(fernet.decrypt(encrypted_message), self._BYTE_ENCODING_FORMAT)
 
     def generate_password(self):
         password = [None] * 12
