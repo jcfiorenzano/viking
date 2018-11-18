@@ -22,6 +22,25 @@ class TestAddLoginInfo(VikingE2ETestBase):
         self.assertTrue(stored_logins[0].username == username)
         self.assertTrue(stored_logins[0].password == password)
 
+    def test_addlogin_incremental(self):
+        login1 = ["http://test_login.com", "username", "password"]
+        login2 = ["http://test_login2.com", "username", "password"]
+        login3 = ["http://test_login3.com", "username", "password"]
+
+        add_command = AddCommand(login1)
+        add_command.execute()
+
+        add_command = AddCommand(login2)
+        add_command.execute()
+
+        add_command = AddCommand(login3)
+        add_command.execute()
+
+        show_command = ShowCommand(None)
+        stored_logins = show_command.execute()
+
+        self.assertTrue(len(stored_logins) == 3)
+
 
 if __name__ == '__main__':
     unittest.main()
