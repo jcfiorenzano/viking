@@ -11,9 +11,7 @@ class TestAddLoginInfo(VikingE2ETestBase):
         username = "test_user"
         password = "test_password123"
 
-        argument_list = [site, username, password]
-
-        add_command = AddCommand(argument_list)
+        add_command = AddCommand([site, username, password])
         add_command.execute()
 
         show_command = ShowCommand(None)
