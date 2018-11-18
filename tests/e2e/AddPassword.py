@@ -1,12 +1,11 @@
 import unittest
-import os
-import os.path
-import src.config as config
+
 from src.commands.AddCommand import AddCommand
 from src.commands.ShowCommand import ShowCommand
+from tests.e2e.VikingE2ETestBase import VikingE2ETestBase
 
 
-class TestAddLoginInfo(unittest.TestCase):
+class TestAddLoginInfo(VikingE2ETestBase):
     def test_addLogin(self):
         site = "http://test_site.com/this_login"
         username = "test_user"
@@ -24,11 +23,6 @@ class TestAddLoginInfo(unittest.TestCase):
         self.assertTrue(stored_logins[0].site == site)
         self.assertTrue(stored_logins[0].username == username)
         self.assertTrue(stored_logins[0].password == password)
-
-    @classmethod
-    def tearDownClass(cls):
-        if os.path.exists(config.VIKING_FILE_PATH):
-            os.remove(config.VIKING_FILE_PATH)
 
 
 if __name__ == '__main__':
