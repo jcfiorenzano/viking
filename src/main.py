@@ -1,4 +1,6 @@
 import getpass
+import os
+import src.config as config
 from src.commands.AddCommand import AddCommand
 from src.commands.ShowCommand import ShowCommand
 from src.commands.DeleteCommand import DeleteCommand
@@ -30,10 +32,18 @@ COMMANDS:
 
 
 def main(argv):
+    if _exist_account():
+        authenticate()
+    else:
+
+        _create_account()
+    _process_input(argv)
+
+
+def _process_input(argv):
     try:
         parser = ArgumentParser()
         parsed_object = parser.parse(argv)
-        authenticate()
 
         if parsed_object.add:
             _add(parsed_object.add)
@@ -46,8 +56,8 @@ def main(argv):
         print("Password incorrect")
     except UserNotAuthenticateException:
         print("Fail to authenticate the user")
-    # except Exception:
-    # print("An unexpected exception was raised")
+    except Exception:
+        print("An unexpected exception was raised")
 
 
 def _add(parsed_object):
@@ -73,6 +83,24 @@ def authenticate():
     security = SecurityManager()
     password = getpass.getpass()
     return security.authenticate(password)
+
+
+def _exist_account():
+    return os.path.exists(config.ACCOUNT_FILE_PATH)
+
+
+def _create_account():
+    print("Creating new account")
+    password = None
+    while password is None:
+        password = getpass.getpass(str="Create Password")
+        confirm_password = getpass.getpass(str="Confirm Password")
+
+        if password != confirm_password:
+            print("Password does not match")
+            password = None
+
+    SecurityManager.create_account(password)
 
 
 if __name__ == "__main__":

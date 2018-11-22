@@ -2,9 +2,12 @@
 .DS_Store
 src/.DS_Store
 viking.vik
+acc.vik
+src/__pycache__/
 src/argumentParser/__pycache__/
 src/commands/__pycache__/
 src/exceptions/__pycache__/
 src/model/__pycache__/
 src/persistance/__pycache__/
 src/security/__pycache__/
+tests/e2e/__pycache__/

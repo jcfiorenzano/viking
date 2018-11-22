@@ -1,6 +1,8 @@
 import base64
 import os
 import random
+import hashlib
+import src.config as config
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
@@ -15,14 +17,17 @@ class SecurityManager:
         self._BYTE_ENCODING_FORMAT = "utf8"
 
     def create_account(self, password):
-        # Todo: store password and store key
-        self._get_derivaded_key(password="123")
-        pass
+        salt = os.urandom(32)
+        password_hash = self._get_password_hash(password, salt)
+        with open(config.ACCOUNT_FILE_PATH, "wb") as account_file:
+            account_file.write(password_hash)
+            account_file.write(salt)
 
     def authenticate(self, password):
         # Todo: do something to authenticate the user
+        self._get_derivaded_key(password="123")
         if self._is_password_valid(password):
-           pass
+            pass
         raise WrongPasswordException()
 
     def get_key(self):
@@ -76,8 +81,14 @@ class SecurityManager:
                          backend=default_backend())
         return base64.urlsafe_b64encode(kdf.derive(bytes(password, "utf8")))
 
-    def _is_password_valid(self, password):
+    def _is_password_valid(password):
         return True
 
     def _is_authenticate(self):
         return True
+
+    def _get_password_hash(self, password, salt):
+        hash_object = hashlib.sha3_512()
+        hash_object.update(password.encode())
+        hash_object.update(salt)
+        return hash_object.digest()
