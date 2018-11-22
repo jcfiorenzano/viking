@@ -1,3 +1,4 @@
+import unittest
 from tests.e2e.VikingE2ETestBase import VikingE2ETestBase
 from src.commands.AddCommand import AddCommand
 from src.commands.DeleteCommand import DeleteCommand
@@ -20,3 +21,7 @@ class TestDeleteLogin(VikingE2ETestBase):
         logins = show_command.execute()
 
         self.assertTrue(len(logins) == 0)
+
+
+if __name__ == '__main__':
+    unittest.main()
