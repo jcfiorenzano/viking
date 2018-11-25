@@ -1,5 +1,9 @@
 .idea/
 .DS_Store
+dist/
+build/
+bin/
+lib/
 src/.DS_Store
 viking.vik
 acc.vik
