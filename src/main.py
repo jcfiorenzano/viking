@@ -92,8 +92,8 @@ def _create_account():
     print("Creating new account")
     password = None
     while password is None:
-        password = getpass.getpass(str="Create Password")
-        confirm_password = getpass.getpass(str="Confirm Password")
+        password = getpass.getpass(prompt="Create Password")
+        confirm_password = getpass.getpass(prompt="Confirm Password")
 
         if password != confirm_password:
             print("Password does not match")
