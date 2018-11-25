@@ -7,27 +7,27 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-
+from src.persistance.AccountRepository import AccountRepository
+from src.model.AccountSecret import AccountSecret
 from src.exceptions.Exceptions import UserNotAuthenticateException
 from src.exceptions.Exceptions import WrongPasswordException
 
 
 class SecurityManager:
+    key = None
+
     def __init__(self):
-        self._BYTE_ENCODING_FORMAT = "utf8"
+        self.__BYTE_ENCODING_FORMAT = "utf8"
+
 
     def create_account(self, password):
-        salt = os.urandom(32)
-        password_hash = self._get_password_hash(password, salt)
-        with open(config.ACCOUNT_FILE_PATH, "wb") as account_file:
-            account_file.write(password_hash)
-            account_file.write(salt)
+        salt = os.urandom(config.SALT_SIZE)
+        password_hash = self.__get_password_hash(password, salt)
+        AccountRepository().save_account(AccountSecret(password_hash, salt))
 
     def authenticate(self, password):
-        # Todo: do something to authenticate the user
-        self._get_derivaded_key(password="123")
-        if self._is_password_valid(password):
-            pass
+        if self.__is_password_valid(password):
+            key = self.__get_derivaded_key(password)
         raise WrongPasswordException()
 
     def get_key(self):
@@ -38,11 +38,11 @@ class SecurityManager:
 
     def encrypt(self, plain_message):
         fernet = Fernet(self.get_key())
-        return fernet.encrypt(bytes(plain_message, self._BYTE_ENCODING_FORMAT))
+        return fernet.encrypt(bytes(plain_message, self.__BYTE_ENCODING_FORMAT))
 
     def decrypt(self, encrypted_message):
         fernet = Fernet(self.get_key())
-        return bytes.decode(fernet.decrypt(encrypted_message), self._BYTE_ENCODING_FORMAT)
+        return bytes.decode(fernet.decrypt(encrypted_message), self.__BYTE_ENCODING_FORMAT)
 
     def generate_password(self):
         password = [None] * 12
@@ -75,19 +75,24 @@ class SecurityManager:
 
         return "".join(password)
 
-    def _get_derivaded_key(self, password):
-        salt = os.urandom(16)
-        kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=100000,
+    def __get_derivaded_key(self, password):
+        account = AccountRepository().load_account()
+        kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),
+                         length=32,
+                         salt=account.salt,
+                         iterations=100000,
                          backend=default_backend())
         return base64.urlsafe_b64encode(kdf.derive(bytes(password, "utf8")))
 
-    def _is_password_valid(password):
-        return True
+    def __is_password_valid(self, password):
+        account = AccountRepository().load_account()
+        password_hash = self.__get_password_hash(password, account.salt)
+        return account.password_hash == password_hash
 
     def _is_authenticate(self):
         return True
 
-    def _get_password_hash(self, password, salt):
+    def __get_password_hash(self, password, salt):
         hash_object = hashlib.sha3_512()
         hash_object.update(password.encode())
         hash_object.update(salt)
