@@ -3,6 +3,7 @@ import os
 import src.config as config
 from src.exceptions.Exceptions import SiteNotFound
 
+
 class Persistance:
     def __init__(self):
         self._SERIALIZE_PICKLE_PROTOCOL = 3
@@ -27,7 +28,7 @@ class Persistance:
         logins = self.load()
 
         if site in logins:
-            del(logins[site])
+            del (logins[site])
         else:
             raise SiteNotFound
 

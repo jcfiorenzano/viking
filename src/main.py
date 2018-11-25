@@ -7,7 +7,7 @@ from src.commands.DeleteCommand import DeleteCommand
 from src.exceptions.Exceptions import UserNotAuthenticateException
 from src.exceptions.Exceptions import WrongPasswordException
 from src.argumentParser.ArgumentParser import ArgumentParser
-from src.security.SecurityManager import SecurityManager
+import src.security.SecurityManager as SecurityManager
 
 '''
 COMMANDS:
@@ -71,7 +71,7 @@ def _show(parsed_object):
     executor = ShowCommand(parsed_object.show)
     logins = executor.execute()
     for login in logins:
-        print(login.toString())
+        print(login.to_string())
 
 
 def _delete(parsed_object):
@@ -80,9 +80,8 @@ def _delete(parsed_object):
 
 
 def authenticate():
-    security = SecurityManager()
     password = getpass.getpass()
-    return security.authenticate(password)
+    return SecurityManager.authenticate(password)
 
 
 def _exist_account():

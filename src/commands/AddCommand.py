@@ -1,4 +1,4 @@
-from src.security.SecurityManager import SecurityManager
+import src.security.SecurityManager as SecurityManager
 from src.persistance.Persistance import Persistance
 from src.model.LoginInfo import LoginInfo
 
@@ -12,11 +12,10 @@ class AddCommand:
         self.loginInfo = LoginInfo(site, username, password)
 
     def execute(self):
-        security_manager = SecurityManager()
         missing_password = self.loginInfo.password is None
-        password = self.loginInfo.password if not missing_password else security_manager.generate_password()
+        password = self.loginInfo.password if not missing_password else SecurityManager.generate_password()
 
-        self.loginInfo.password = security_manager.encrypt(plain_message=password)
+        self.loginInfo.password = SecurityManager.encrypt(plain_message=password)
 
         Persistance().save(self.loginInfo)
 

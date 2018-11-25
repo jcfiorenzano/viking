@@ -1,5 +1,5 @@
 from src.persistance.Persistance import Persistance
-from src.security.SecurityManager import SecurityManager
+import src.security.SecurityManager as SecurityManager
 
 
 class ShowCommand:
@@ -12,11 +12,11 @@ class ShowCommand:
         if not self.site_url:
             for login_key in login_info_dictionary.keys():
                 login = login_info_dictionary[login_key]
-                login.password = SecurityManager().decrypt(login.password)
+                login.password = SecurityManager.decrypt(login.password)
                 result.append(login)
         else:
             login = login_info_dictionary[self.site_url]
-            login.password = SecurityManager().decrypt(login.password)
+            login.password = SecurityManager.decrypt(login.password)
             result.append(login)
 
         return result

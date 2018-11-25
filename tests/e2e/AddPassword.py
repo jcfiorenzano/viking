@@ -1,5 +1,4 @@
 import unittest
-
 from src.commands.AddCommand import AddCommand
 from src.commands.ShowCommand import ShowCommand
 from tests.e2e.VikingE2ETestBase import VikingE2ETestBase
@@ -23,6 +22,7 @@ class TestAddLoginInfo(VikingE2ETestBase):
         self.assertTrue(stored_logins[0].password == password)
 
     def test_addlogin_incremental(self):
+
         login1 = ["http://test_login.com", "username", "password"]
         login2 = ["http://test_login2.com", "username", "password"]
         login3 = ["http://test_login3.com", "username", "password"]
