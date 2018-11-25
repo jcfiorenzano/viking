@@ -5,14 +5,14 @@ from src.commands.DeleteCommand import DeleteCommand
 from src.commands.ShowCommand import ShowCommand
 
 
-class TestDeleteLogin(VikingE2ETestBase):
+class TestDeleteCommand(VikingE2ETestBase):
     def test_delete_login(self):
         site = "http://test_login.com"
         username = "test_username"
         password = "test_password"
 
-        addComand = AddCommand([site, username, password])
-        addComand.execute()
+        add_command = AddCommand([site, username, password])
+        add_command.execute()
 
         delete_command = DeleteCommand([site])
         delete_command.execute()

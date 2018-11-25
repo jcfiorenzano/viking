@@ -4,7 +4,7 @@ from src.commands.ShowCommand import ShowCommand
 from tests.e2e.VikingE2ETestBase import VikingE2ETestBase
 
 
-class TestAddLoginInfo(VikingE2ETestBase):
+class TestAddCommand(VikingE2ETestBase):
     def test_addLogin(self):
         site = "http://test_site.com/this_login"
         username = "test_user"
