@@ -1,3 +1,4 @@
+import sys
 import getpass
 import os
 import src.config as config
@@ -103,6 +104,4 @@ def _create_account():
 
 
 if __name__ == "__main__":
-    ''' main(sys.argv[1:]) '''
-    main("--add site username password".split(" "))
-    main("--show site".split(" "))
+    main(sys.argv[1:])

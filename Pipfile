@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 cryptography = "==2.3.1"
+pyinstaller  = "*"
 
 [dev-packages]
 
