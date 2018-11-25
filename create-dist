@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -r dist/ build/
+pyinstaller src/main.py
