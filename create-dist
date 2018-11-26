@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rm -r dist/ build/
-pyinstaller src/main.py
+pyinstaller src/main.py --name viking

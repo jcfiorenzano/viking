@@ -8,6 +8,9 @@ class ShowCommand:
 
     def execute(self):
         login_info_dictionary = Persistance().load()
+        if len(login_info_dictionary) == 0:
+            return []
+
         result = []
         if not self.site_url:
             for login_key in login_info_dictionary.keys():

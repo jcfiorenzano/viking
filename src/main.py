@@ -36,7 +36,6 @@ def main(argv):
     if _exist_account():
         authenticate()
     else:
-
         _create_account()
     _process_input(argv)
 
@@ -61,22 +60,24 @@ def _process_input(argv):
         print("An unexpected exception was raised")
 
 
-def _add(parsed_object):
-    executor = AddCommand(parsed_object.add)
+def _add(args):
+    executor = AddCommand(args)
     missing_password = executor.execute()
     if missing_password is not None:
         print("Your password for this site is: " + missing_password)
 
 
-def _show(parsed_object):
-    executor = ShowCommand(parsed_object.show)
+def _show(args):
+    executor = ShowCommand(args)
     logins = executor.execute()
+    if len(logins) == 0:
+        print("There is no passwords stored for that site.")
     for login in logins:
         print(login.to_string())
 
 
-def _delete(parsed_object):
-    executor = DeleteCommand(parsed_object)
+def _delete(args):
+    executor = DeleteCommand(args)
     executor.execute()
 
 
@@ -104,4 +105,10 @@ def _create_account():
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+     main(sys.argv[1:])
+    # main("-a asd asd asd".split())
+    # main("-s asd".split())
+    # main("-d asd".split())
+    # main("-s asd".split())
+    # main("-a bcb bcb bcb".split())
+

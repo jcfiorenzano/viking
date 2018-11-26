@@ -20,6 +20,8 @@ def create_account(password):
     salt = os.urandom(config.SALT_SIZE)
     password_hash = __get_password_hash(password, salt)
     AccountRepository().save_account(AccountSecret(password_hash, salt))
+    global __key
+    __key = __get_derivaded_key(password)
 
 
 def authenticate(password):
