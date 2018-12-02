@@ -10,7 +10,7 @@ class TestAddCommand(VikingE2ETestBase):
         username = "test_user"
         password = "test_password123"
 
-        add_command = AddCommand([site, username, password])
+        add_command = AddCommand(site, username, password)
         add_command.execute()
 
         show_command = ShowCommand(None)
@@ -23,17 +23,13 @@ class TestAddCommand(VikingE2ETestBase):
 
     def test_addlogin_incremental(self):
 
-        login1 = ["http://test_login.com", "username", "password"]
-        login2 = ["http://test_login2.com", "username", "password"]
-        login3 = ["http://test_login3.com", "username", "password"]
-
-        add_command = AddCommand(login1)
+        add_command = AddCommand("http://test_login.com", "username", "password")
         add_command.execute()
 
-        add_command = AddCommand(login2)
+        add_command = AddCommand("http://test_login2.com", "username", "password")
         add_command.execute()
 
-        add_command = AddCommand(login3)
+        add_command = AddCommand("http://test_login3.com", "username", "password")
         add_command.execute()
 
         show_command = ShowCommand(None)

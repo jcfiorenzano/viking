@@ -4,10 +4,10 @@ from src.model.LoginInfo import LoginInfo
 
 
 class AddCommand:
-    def __init__(self, argument_tuple):
-        site = argument_tuple[0]
-        username = argument_tuple[1]
-        password = argument_tuple[2] if len(argument_tuple) == 3 else None
+    def __init__(self, site, username, password):
+        site = site
+        username = username
+        password = password
 
         self.loginInfo = LoginInfo(site, username, password)
 

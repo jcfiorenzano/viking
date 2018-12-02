@@ -3,8 +3,8 @@ import src.security.SecurityManager as SecurityManager
 
 
 class ShowCommand:
-    def __init__(self, argument):
-        self.site_url = argument[0] if argument is not None else None
+    def __init__(self, site_url):
+        self.site_url = site_url
 
     def execute(self):
         login_info_dictionary = Persistance().load()

@@ -11,10 +11,10 @@ class TestDeleteCommand(VikingE2ETestBase):
         username = "test_username"
         password = "test_password"
 
-        add_command = AddCommand([site, username, password])
+        add_command = AddCommand(site, username, password)
         add_command.execute()
 
-        delete_command = DeleteCommand([site])
+        delete_command = DeleteCommand(site)
         delete_command.execute()
 
         show_command = ShowCommand(None)

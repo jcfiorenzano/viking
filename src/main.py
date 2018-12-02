@@ -1,14 +1,8 @@
 import sys
-import getpass
-import os
-import src.config as config
-from src.commands.AddCommand import AddCommand
-from src.commands.ShowCommand import ShowCommand
-from src.commands.DeleteCommand import DeleteCommand
 from src.exceptions.Exceptions import UserNotAuthenticateException
 from src.exceptions.Exceptions import WrongPasswordException
 from src.argumentParser.ArgumentParser import ArgumentParser
-import src.security.SecurityManager as SecurityManager
+from src.handle.HandleFactory import HandleFactory
 
 '''
 COMMANDS:
@@ -30,78 +24,28 @@ COMMANDS:
         Remove an entry of the database
         -d site
 '''
+# Todo: Instead of copy the password directly in the command line is more secure if the password is passed with getPass when we are going to add a new site
+# Todo: Encrypt the whole file
+# Todo: create unit testing
+# Todo: Create a command to get the version number
+# Todo: Create a structure that can handle more than password, example pins or secure questions
 
 
 def main(argv):
-    if _exist_account():
-        authenticate()
-    else:
-        _create_account()
-    _process_input(argv)
 
-
-def _process_input(argv):
     try:
         parser = ArgumentParser()
         parsed_object = parser.parse(argv)
 
-        if parsed_object.add:
-            _add(parsed_object.add)
-        elif parsed_object.show:
-            _show(parsed_object.show)
-        elif parsed_object.delete:
-            _delete(parsed_object.delete)
+        command_handle = HandleFactory.create_handle(parsed_object)
+        command_handle.handle()
 
     except WrongPasswordException:
         print("Password incorrect")
     except UserNotAuthenticateException:
         print("Fail to authenticate the user")
-    except Exception:
-        print("An unexpected exception was raised")
-
-
-def _add(args):
-    executor = AddCommand(args)
-    missing_password = executor.execute()
-    if missing_password is not None:
-        print("Your password for this site is: " + missing_password)
-
-
-def _show(args):
-    executor = ShowCommand(args)
-    logins = executor.execute()
-    if len(logins) == 0:
-        print("There is no passwords stored for that site.")
-    for login in logins:
-        print(login.to_string())
-
-
-def _delete(args):
-    executor = DeleteCommand(args)
-    executor.execute()
-
-
-def authenticate():
-    password = getpass.getpass()
-    return SecurityManager.authenticate(password)
-
-
-def _exist_account():
-    return os.path.exists(config.ACCOUNT_FILE_PATH)
-
-
-def _create_account():
-    print("Creating new account")
-    password = None
-    while password is None:
-        password = getpass.getpass(prompt="Create Password")
-        confirm_password = getpass.getpass(prompt="Confirm Password")
-
-        if password != confirm_password:
-            print("Password does not match")
-            password = None
-
-    SecurityManager.create_account(password)
+    # except Exception:
+    #    print("An unexpected exception was raised")
 
 
 if __name__ == "__main__":
@@ -111,4 +55,5 @@ if __name__ == "__main__":
     # main("-d asd".split())
     # main("-s asd".split())
     # main("-a bcb bcb bcb".split())
+    # main("-h".split())
 
