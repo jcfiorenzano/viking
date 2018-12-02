@@ -24,12 +24,6 @@ COMMANDS:
         Remove an entry of the database
         -d site
 '''
-# Todo: Instead of copy the password directly in the command line is more secure if the password is passed with getPass when we are going to add a new site
-# Todo: Encrypt the whole file
-# Todo: create unit testing
-# Todo: Create a command to get the version number
-# Todo: Create a structure that can handle more than password, example pins or secure questions
-
 
 def main(argv):
 
