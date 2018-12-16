@@ -1,4 +1,3 @@
-from src.commands.DeleteCommand import DeleteCommand
 from src.handle.AddCommandHandle import AddCommandHandle
 from src.handle.ShowCommandHandle import ShowCommandHandle
 from src.handle.DeleteCommandHandle import DeleteCommandHandle
@@ -12,6 +11,5 @@ class HandleFactory:
         elif parsed_object.show:
             return ShowCommandHandle(parsed_object.show)
         elif parsed_object.delete:
-            site_url = parsed_object.delete[0]
-            delete_command = DeleteCommand(site_url)
-            return DeleteCommandHandle(delete_command)
+
+            return DeleteCommandHandle(parsed_object.delete)
