@@ -6,8 +6,8 @@ class ArgumentParser:
         self.parser = argparse.ArgumentParser(description="Password manager tool")
         self.parser.add_argument("-a", "--add",
                                  dest="add",
-                                 nargs=3,
-                                 metavar=('site', 'username', 'password'),
+                                 nargs=2,
+                                 metavar=('site', 'username'),
                                  help='Store a new site')
 
         self.parser.add_argument("-s", "--show",
