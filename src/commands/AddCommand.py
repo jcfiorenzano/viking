@@ -12,5 +12,4 @@ class AddCommand:
         self.loginInfo = LoginInfo(site, username, password)
 
     def execute(self):
-        self.loginInfo.password = SecurityManager.encrypt(plain_message=self.loginInfo.password)
         Persistance().save(self.loginInfo)

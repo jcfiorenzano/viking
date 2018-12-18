@@ -37,8 +37,8 @@ def main(argv):
         print("Password incorrect")
     except UserNotAuthenticateException:
         print("Fail to authenticate the user")
-    except Exception:
-        print("An unexpected exception was raised")
+   # except Exception:
+   #     print("An unexpected exception was raised")
 
 
 if __name__ == "__main__":

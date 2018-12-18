@@ -14,12 +14,9 @@ class ShowCommand:
         result = []
         if not self.site_url:
             for login_key in login_info_dictionary.keys():
-                login = login_info_dictionary[login_key]
-                login.password = SecurityManager.decrypt(login.password)
-                result.append(login)
+                result.append(login_info_dictionary[login_key])
         else:
             login = login_info_dictionary[self.site_url]
-            login.password = SecurityManager.decrypt(login.password)
             result.append(login)
 
         return result

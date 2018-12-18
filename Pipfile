@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 cryptography = "==2.3.1"
 pyinstaller  = "*"
+jsonpickle   = "==1.0"
 
 [dev-packages]
 
