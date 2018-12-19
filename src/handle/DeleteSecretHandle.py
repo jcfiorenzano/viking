@@ -1,5 +1,5 @@
+import src.secret_manager.SecretManager as SecretManager
 from src.handle.Handle import Handle
-from src.commands.DeleteCommand import DeleteCommand
 
 
 class DeleteCommandHandle(Handle):
@@ -9,5 +9,4 @@ class DeleteCommandHandle(Handle):
     def handle(self):
         self.authenticate()
         site_url = self.arguments[0]
-        command = DeleteCommand(site_url)
-        command.execute()
+        SecretManager.delete(site_url)

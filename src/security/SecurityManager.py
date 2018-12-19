@@ -3,12 +3,12 @@ import os
 import random
 import hashlib
 import src.config as config
+import src.file_manager.AccountFileManager as accountRepository
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from src.persistance.AccountRepository import AccountRepository
-from src.model.AccountSecret import AccountSecret
+from src.model.Account import Account
 from src.exceptions.Exceptions import UserNotAuthenticateException
 from src.exceptions.Exceptions import WrongPasswordException
 
@@ -19,7 +19,7 @@ __BYTE_ENCODING_FORMAT = "utf8"
 def create_account(password):
     salt = os.urandom(config.SALT_SIZE)
     password_hash = __get_password_hash(password, salt)
-    AccountRepository().save_account(AccountSecret(password_hash, salt))
+    accountRepository.save_account(Account(password_hash, salt))
     global __key
     __key = __get_derivaded_key(password)
 
@@ -75,7 +75,7 @@ def generate_password():
 
 
 def __get_derivaded_key(password):
-    account = AccountRepository().load_account()
+    account = accountRepository.load_account()
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),
                      length=32,
                      salt=account.salt,
@@ -89,7 +89,7 @@ def __is_authenticated():
 
 
 def __is_password_valid(password):
-    account = AccountRepository().load_account()
+    account = accountRepository.load_account()
     password_hash = __get_password_hash(password, account.salt)
     return account.password_hash == password_hash
 

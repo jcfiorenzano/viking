@@ -1,6 +1,6 @@
 import unittest
-from src.commands.AddCommand import AddCommand
-from src.commands.ShowCommand import ShowCommand
+import src.secret_manager.SecretManager as SecretManager
+from src.model.Secret import Secret
 from tests.e2e.VikingE2ETestBase import VikingE2ETestBase
 
 
@@ -10,32 +10,24 @@ class TestAddCommand(VikingE2ETestBase):
         username = "test_user"
         password = "test_password123"
 
-        add_command = AddCommand(site, username, password)
-        add_command.execute()
+        secret = Secret(site, username, password)
+        SecretManager.add(secret)
 
-        show_command = ShowCommand(None)
-        stored_logins = show_command.execute()
+        stored_secrets = SecretManager.get(None)
 
-        self.assertTrue(len(stored_logins) == 1)
-        self.assertTrue(stored_logins[0].site == site)
-        self.assertTrue(stored_logins[0].username == username)
-        self.assertTrue(stored_logins[0].password == password)
+        self.assertTrue(len(stored_secrets) == 1)
+        self.assertTrue(stored_secrets[0].site == site)
+        self.assertTrue(stored_secrets[0].username == username)
+        self.assertTrue(stored_secrets[0].password == password)
 
     def test_addlogin_incremental(self):
+        SecretManager.add(Secret("http://test_login.com", "username", "password"))
+        SecretManager.add(Secret("http://test_login2.com", "username", "password"))
+        SecretManager.add(Secret("http://test_login3.com", "username", "password"))
 
-        add_command = AddCommand("http://test_login.com", "username", "password")
-        add_command.execute()
+        stored_secrets = SecretManager.get(None)
 
-        add_command = AddCommand("http://test_login2.com", "username", "password")
-        add_command.execute()
-
-        add_command = AddCommand("http://test_login3.com", "username", "password")
-        add_command.execute()
-
-        show_command = ShowCommand(None)
-        stored_logins = show_command.execute()
-
-        self.assertTrue(len(stored_logins) == 3)
+        self.assertTrue(len(stored_secrets) == 3)
 
 
 if __name__ == '__main__':

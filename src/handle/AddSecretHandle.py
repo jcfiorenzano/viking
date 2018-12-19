@@ -1,5 +1,6 @@
+import src.secret_manager.SecretManager as SecretManager
 from src.handle.Handle import Handle
-from src.commands.AddCommand import AddCommand
+from src.model.Secret import Secret
 
 
 class AddCommandHandle(Handle):
@@ -11,5 +12,6 @@ class AddCommandHandle(Handle):
         site_url = self.add_arguments[0]
         username = self.add_arguments[1]
         password = input("Insert password: ")
-        command = AddCommand(site_url, username, password)
-        command.execute()
+
+        secret = Secret(site_url, username, password)
+        SecretManager.add(secret)
