@@ -4,7 +4,7 @@ import src.config as config
 import src.security.SecurityManager as SecurityManager
 
 
-class VikingE2ETestBase(unittest.TestCase):
+class TestBase(unittest.TestCase):
 
     @classmethod
     def setUp(cls):
