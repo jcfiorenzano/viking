@@ -13,7 +13,7 @@ class TestSecretManager(TestBase):
         secret = Secret(site, username, password)
         SecretManager.add(secret)
 
-        stored_secrets = SecretManager.get(None)
+        stored_secrets = SecretManager.get_all()
 
         self.assertTrue(len(stored_secrets) == 1)
         self.assertTrue(stored_secrets[0].site == site)
@@ -25,7 +25,7 @@ class TestSecretManager(TestBase):
         SecretManager.add(Secret("http://test_login2.com", "username", "password"))
         SecretManager.add(Secret("http://test_login3.com", "username", "password"))
 
-        stored_secrets = SecretManager.get(None)
+        stored_secrets = SecretManager.get_all()
 
         self.assertTrue(len(stored_secrets) == 3)
 
@@ -38,7 +38,7 @@ class TestSecretManager(TestBase):
 
         SecretManager.delete(site)
 
-        secrets = SecretManager.get(None)
+        secrets = SecretManager.get_all()
 
         self.assertTrue(len(secrets) == 0)
         

@@ -10,16 +10,12 @@ def delete(site_url):
 
 
 def get(site_url):
-    login_info_dictionary = SecretFileManager.load()
-    if len(login_info_dictionary) == 0:
-        return []
+    secrets_dictionary = SecretFileManager.load()
+    if len(secrets_dictionary) > 0:
+        return secrets_dictionary[site_url]
+    return None
 
-    result = []
-    if not site_url:
-        for login_key in login_info_dictionary.keys():
-            result.append(login_info_dictionary[login_key])
-    else:
-        login = login_info_dictionary[site_url]
-        result.append(login)
 
-    return result
+def get_all():
+    secrets_dictionary = SecretFileManager.load()
+    return [secrets_dictionary[key] for key in secrets_dictionary.keys()]

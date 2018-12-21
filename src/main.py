@@ -28,28 +28,27 @@ COMMANDS:
 def parsed_arguments(argv):
     parser = argparse.ArgumentParser(description="Password manager tool")
     parser.add_argument("-a", "--add",
-                             dest="add",
-                             nargs=2,
-                             metavar=('site', 'username'),
-                             help='Store a new site')
+                        dest="add",
+                        nargs=2,
+                        metavar=('site', 'username'),
+                        help='Store a new site')
 
     parser.add_argument("-s", "--show",
-                             dest="show",
-                             nargs=1,
-                             metavar='[site]',
-                             help='Show the information of a given site, if not site is provided then show all')
+                        dest="show",
+                        nargs=1,
+                        metavar='[site]',
+                        help='Show the information of a given site, if not site is provided then show all')
 
     parser.add_argument("-d", "--delete",
-                             dest="delete",
-                             nargs=1,
-                             metavar='site',
-                             help='Remove a given site')
+                        dest="delete",
+                        nargs=1,
+                        metavar='site',
+                        help='Remove a given site')
 
     return parser.parse_args(argv)
 
 
 def main(argv):
-
     try:
         parsed_object = parsed_arguments(argv)
 
@@ -65,11 +64,10 @@ def main(argv):
 
 
 if __name__ == "__main__":
-     main(sys.argv[1:])
+    main(sys.argv[1:])
     # main("-a asd asd".split())
     # main("-s asd".split())
     # main("-d asd".split())
     # main("-s asd".split())
     # main("-a bcb bcb".split())
     # main("-h".split())
-
