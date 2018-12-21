@@ -2,8 +2,8 @@ import pickle
 import jsonpickle
 import os
 import src.config as config
-import src.security.SecurityManager as SecurityManager
-from src.exceptions.Exceptions import SiteNotFound
+import src.security.security_manager as SecurityManager
+from src.exceptions.exception import SiteNotFound
 
 _SERIALIZE_PICKLE_PROTOCOL = 3
 

@@ -1,5 +1,5 @@
 import src.config as config
-from src.model.Account import Account
+from src.model.account import Account
 
 
 def load_account():

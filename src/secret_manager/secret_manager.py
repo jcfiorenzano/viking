@@ -1,4 +1,4 @@
-import src.file_manager.SecretFileManager as SecretFileManager
+import src.file_manager.secret_file_manager as SecretFileManager
 
 
 def add(secret):

@@ -1,8 +1,8 @@
 import sys
 import argparse
-import src.handle.HandleFactory as HandleFactory
-from src.exceptions.Exceptions import UserNotAuthenticateException
-from src.exceptions.Exceptions import WrongPasswordException
+import src.handle.handle_factory as HandleFactory
+from src.exceptions.exception import UserNotAuthenticateException
+from src.exceptions.exception import WrongPasswordException
 
 '''
 COMMANDS:

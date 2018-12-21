@@ -1,5 +1,5 @@
-import src.secret_manager.SecretManager as SecretManager
-from src.handle.Handle import Handle
+import src.secret_manager.secret_manager as SecretManager
+from src.handle.handle import Handle
 
 
 class ShowCommandHandle(Handle):

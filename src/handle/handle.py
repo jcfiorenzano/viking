@@ -1,7 +1,7 @@
 import getpass
 import os
 import src.config as config
-import src.security.SecurityManager as SecurityManager
+import src.security.security_manager as SecurityManager
 
 
 class Handle:

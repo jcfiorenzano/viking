@@ -1,6 +1,6 @@
-import src.secret_manager.SecretManager as SecretManager
-from src.handle.Handle import Handle
-from src.model.Secret import Secret
+import src.secret_manager.secret_manager as SecretManager
+from src.handle.handle import Handle
+from src.model.secret import Secret
 
 
 class AddCommandHandle(Handle):

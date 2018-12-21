@@ -1,6 +1,6 @@
 import unittest
-import src.secret_manager.SecretManager as SecretManager
-from src.model.Secret import Secret
+import src.secret_manager.secret_manager as SecretManager
+from src.model.secret import Secret
 from tests.e2e.testbase import TestBase
 
 
