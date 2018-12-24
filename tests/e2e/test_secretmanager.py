@@ -20,7 +20,7 @@ class TestSecretManager(TestBase):
         self.assertTrue(stored_secrets[0].username == username)
         self.assertTrue(stored_secrets[0].password == password)
 
-    def test_add_incremental(self):
+    def test_add_multiple(self):
         SecretManager.add(Secret("http://test_login.com", "username", "password"))
         SecretManager.add(Secret("http://test_login2.com", "username", "password"))
         SecretManager.add(Secret("http://test_login3.com", "username", "password"))
