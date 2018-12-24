@@ -1,7 +1,7 @@
-from src.handle.add_secret_handle import AddCommandHandle
-from src.handle.get_secret_handle import ShowCommandHandle
-from src.handle.delete_secret_handle import DeleteCommandHandle
-
+from viking.handle.add_secret_handle import AddCommandHandle
+from viking.handle.get_secret_handle import ShowCommandHandle
+from viking.handle.delete_secret_handle import DeleteCommandHandle
+from viking.handle.add_secret_handle import AddCommandHandle
 
 def create_handle(parsed_object):
     if parsed_object.add:

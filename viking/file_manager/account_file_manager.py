@@ -1,5 +1,5 @@
-import src.config as config
-from src.model.account import Account
+import viking.config as config
+from viking.model.account import Account
 
 
 def load_account():

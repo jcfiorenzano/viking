@@ -1,7 +1,7 @@
 import unittest
 import os
-import src.config as config
-import src.security.security_manager as SecurityManager
+import viking.config as config
+import viking.security.security_manager as SecurityManager
 
 
 class TestBase(unittest.TestCase):

@@ -1,8 +1,8 @@
-import src.secret_manager.secret_manager as SecretManager
-from src.handle.handle import Handle
+import viking.secret_manager.secret_manager as SecretManager
+from viking.handle.handle_base import HandleBase
 
 
-class ShowCommandHandle(Handle):
+class ShowCommandHandle(HandleBase):
     def __init__(self, show_arguments):
         self.show_arguments = show_arguments
 
@@ -13,7 +13,7 @@ class ShowCommandHandle(Handle):
         if site_url is not None:
             self.__show_secret_info(site_url)
         else:
-            self.show_all_secrets()
+            self.__show_all_secrets()
 
 
     def __show_secret_info(self, site_url):

@@ -1,8 +1,8 @@
-import src.secret_manager.secret_manager as SecretManager
-from src.handle.handle import Handle
+import viking.secret_manager.secret_manager as SecretManager
+from viking.handle.handle_base import HandleBase
 
 
-class DeleteCommandHandle(Handle):
+class DeleteCommandHandle(HandleBase):
     def __init__(self, delete_arguments):
         self.arguments = delete_arguments
 

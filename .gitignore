@@ -1,5 +1,6 @@
 .idea/
 .DS_Store
+.vscode/
 dist/
 build/
 bin/
@@ -16,3 +17,5 @@ src/model/__pycache__/
 src/persistance/__pycache__/
 src/security/__pycache__/
 tests/e2e/__pycache__/
+viking-env/
+viking.egg-info

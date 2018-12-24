@@ -1,9 +1,9 @@
 import pickle
 import jsonpickle
 import os
-import src.config as config
-import src.security.security_manager as SecurityManager
-from src.exceptions.exception import SiteNotFound
+import viking.config as config
+import viking.security.security_manager as SecurityManager
+from viking.exceptions.exception import SiteNotFound
 
 _SERIALIZE_PICKLE_PROTOCOL = 3
 

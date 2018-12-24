@@ -1,4 +1,4 @@
-import src.file_manager.secret_file_manager as SecretFileManager
+import viking.file_manager.secret_file_manager as SecretFileManager
 
 
 def add(secret):

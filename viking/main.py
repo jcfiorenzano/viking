@@ -1,8 +1,8 @@
 import sys
 import argparse
-import src.handle.handle_factory as HandleFactory
-from src.exceptions.exception import UserNotAuthenticateException
-from src.exceptions.exception import WrongPasswordException
+import viking.handle.handle_factory as HandleFactory
+from viking.exceptions.exception import UserNotAuthenticateException
+from viking.exceptions.exception import WrongPasswordException
 
 '''
 COMMANDS:
@@ -64,10 +64,10 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
-    # main("-a asd asd".split())
-    # main("-s asd".split())
-    # main("-d asd".split())
-    # main("-s asd".split())
-    # main("-a bcb bcb".split())
-    # main("-h".split())
+    # main(sys.argv[1:])
+     main("-a asd asd".split())
+     main("-s asd".split())
+     main("-d asd".split())
+     main("-s asd".split())
+     main("-a bcb bcb".split())
+     main("-h".split())

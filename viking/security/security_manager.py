@@ -2,15 +2,15 @@ import base64
 import os
 import random
 import hashlib
-import src.config as config
-import src.file_manager.account_file_manager as accountRepository
+import viking.config as config
+import viking.file_manager.account_file_manager as accountRepository
 from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from src.model.account import Account
-from src.exceptions.exception import UserNotAuthenticateException
-from src.exceptions.exception import WrongPasswordException
+from viking.model.account import Account
+from viking.exceptions.exception import UserNotAuthenticateException
+from viking.exceptions.exception import WrongPasswordException
 
 __key = None
 __BYTE_ENCODING_FORMAT = "utf8"

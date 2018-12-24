@@ -1,9 +1,9 @@
-import src.secret_manager.secret_manager as SecretManager
-from src.handle.handle import Handle
-from src.model.secret import Secret
+import viking.secret_manager.secret_manager as SecretManager
+from viking.handle.handle_base import HandleBase
+from viking.model.secret import Secret
 
 
-class AddCommandHandle(Handle):
+class AddCommandHandle(HandleBase):
     def __init__(self, add_command):
         self.add_arguments = add_command
 
