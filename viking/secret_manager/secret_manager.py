@@ -2,6 +2,18 @@ import viking.file_manager.secret_file_manager as SecretFileManager
 
 
 def add(secret):
+    if secret is None:
+        raise ValueError("Incorrect value for secret")
+
+    if secret.site is None or secret.site.strip() == "":
+        raise ValueError("The site url can not be empty")
+
+    if secret.username is None or secret.username.strip() == "":
+        raise ValueError("The username can not be empty")
+
+    if secret.password is None or secret.password.strip() == "":
+        raise ValueError("The password can not be empty")
+
     SecretFileManager.save(secret)
 
 

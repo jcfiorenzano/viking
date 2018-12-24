@@ -16,7 +16,12 @@ class TestSecretManager(unittest.TestCase):
         result = SecretManager.get(site_url)
         
         self.assertEqual(result, expected_secret)
-        
+
+    def test_getsecret_secret_no_exist(self):
+        SecretFileManager.load = Mock(return_value= {})
+        self.assertIsNone(SecretManager.get("this site does not exist"))
+
+
     def test_getallsecret(self):
         secret = Secret("http://test.com", "test-user", "test-password")
         dictionary = { "http://test.com": secret}
@@ -35,6 +40,20 @@ class TestSecretManager(unittest.TestCase):
 
         SecretFileManager.save.assert_called_once_with(secret)
     
+    def test_add_nullvalue_raise_exception(self):
+        with self.assertRaises(ValueError):
+            SecretManager.add(None)
+    
+    def test_add_missing_required_values_raise_exception(self):
+        with self.assertRaises(ValueError):
+            SecretManager.add(Secret(site=None, username="username", password="password"))
+
+        with self.assertRaises(ValueError):
+            SecretManager.add(Secret(site="site", username=None, password="password"))
+        
+        with self.assertRaises(ValueError):
+            SecretManager.add(Secret(site="site", username="username", password=None))
+            
     def test_deletesecret(self):
         site_url = "http://test.com"
         SecretFileManager.delete = create_autospec(SecretFileManager.delete)
