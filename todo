@@ -1,4 +1,3 @@
-# Todo: create unit testing
 # Todo: Create a command to get the version number
 # Todo: Create search function to retrieve similar sites from the show command ex: show face -> print the result for facebook and facetime
 # Todo: Create a structure that can handle more than password, example pins or secure questions
