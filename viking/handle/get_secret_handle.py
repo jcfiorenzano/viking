@@ -21,14 +21,19 @@ class ShowCommandHandle(HandleBase):
         if secret is None:
             print("There is no passwords stored for that site.")
         else:
-            self.__print_secret(secret)
+            print("Site: {0}".format(secret.site))
+            print("Username: {0}".format(secret.username))
+            print("Password: {0}".format(secret.password))
+            if secret.security_questions is not None and len(secret.security_questions) != 0:
+                print("Security Questions:")
+                for sq in secret.security_questions:
+                    print("Q: {0}".format(sq[0]))
+                    print("A: {0}".format(sq[1]))
+                    print()
 
     def __show_all_secrets(self):
         secrets = SecretManager.get_all()
         if len(secrets) == 0:
             print("There is no passwords stored for that site.")
         for secret in secrets:
-            self.__print_secret(secret)
-
-    def __print_secret(self, secret):
-        print("site: {0} username: {1} password: {2}".format(secret.site, secret.username, secret.password))
+             print("site: {0} username: {1} password: {2}".format(secret.site, secret.username, secret.password))
