@@ -62,9 +62,10 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    # main(sys.argv[1:])
-     main("-a site username".split())
-     main("-s site".split())
+     main(sys.argv[1:])
+    # main("-a site username".split())
+    # main("-s site".split())
+    # main("-s sate".split())
     # main("-d site".split())
     # main("-s site".split())
     # main("-a site2 username2".split())

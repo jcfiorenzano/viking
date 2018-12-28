@@ -1,3 +1,2 @@
 # Todo: Create a command to get the version number
-# Todo: Create search function to retrieve similar sites from the show command ex: show face -> print the result for facebook and facetime
 # Todo: When the user is going to insert a site we need to check if this site already exist and let him know

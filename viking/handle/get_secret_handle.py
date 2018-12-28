@@ -19,7 +19,13 @@ class ShowCommandHandle(HandleBase):
     def __show_secret_info(self, site_url):
         secret = SecretManager.get(site_url)
         if secret is None:
-            print("There is no passwords stored for that site.")
+            print("We couldn't find a match for the site: {0}".format(site_url))
+            similar_sites = SecretManager.search(site_url)
+            if len(similar_sites) > 0:
+                print("Closer results are for:")
+                for site in similar_sites:
+                    print(site)
+                print
         else:
             print("Site: {0}".format(secret.site))
             print("Username: {0}".format(secret.username))
