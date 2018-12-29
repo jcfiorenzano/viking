@@ -69,4 +69,8 @@ if __name__ == "__main__":
     # main("-d site".split())
     # main("-s site".split())
     # main("-a site2 username2".split())
+    # main("-a site2 username3".split())
+    # main("-s site2".split())
+    # main("-a site2 username4".split())
+    # main("-s site2".split())
     # main("-h".split())
