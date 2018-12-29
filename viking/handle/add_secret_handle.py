@@ -12,7 +12,12 @@ class AddCommandHandle(HandleBase):
         site_url = self.add_arguments[0]
         username = self.add_arguments[1]
         password = input("Insert password: ")
-
+        security_questions = self.__get_security_questions()
+        
+        secret = Secret(site_url, username, password, security_questions)
+        SecretManager.add(secret)
+    
+    def __get_security_questions(self):
         user_answer = ""
         while(user_answer.lower() not in ["n","y"]):
             user_answer = input("Do you want to register security questions for this site? [Y]es, [N]o ")
@@ -28,6 +33,4 @@ class AddCommandHandle(HandleBase):
                 user_answer = ""
                 while(user_answer.lower() not in ["n","y"]):
                     user_answer = input("Do you want to continue registering questions? [Y]es, [N]o ")
-
-        secret = Secret(site_url, username, password, security_questions)
-        SecretManager.add(secret)
+        return security_questions
