@@ -22,7 +22,7 @@ class ShowCommandHandle(HandleBase):
             print("We couldn't find a match for the site: {0}".format(site_url))
             similar_sites = SecretManager.search(site_url)
             if len(similar_sites) > 0:
-                print("Closer results are for:")
+                print("Closer results are:")
                 for site in similar_sites:
                     print(site)
                 print
