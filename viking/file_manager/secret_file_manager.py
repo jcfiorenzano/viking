@@ -3,6 +3,7 @@ import jsonpickle
 import os
 import viking.config as config
 import viking.security.security_manager as SecurityManager
+import urllib
 from viking.exceptions.exception import SiteNotFound
 
 _SERIALIZE_PICKLE_PROTOCOL = 3
@@ -10,6 +11,7 @@ _SERIALIZE_PICKLE_PROTOCOL = 3
 
 def save(secret):
     secret_dictionary = load()
+    key = urllib.parse(secret.site).domain
     secret_dictionary[secret.site] = secret
     __save_dictionary(secret_dictionary)
 

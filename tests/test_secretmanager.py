@@ -62,6 +62,26 @@ class TestSecretManager(unittest.TestCase):
 
         SecretFileManager.delete.assert_called_once_with(site_url)
 
+    def test_search(self):
+        secret_dictionary = {
+            "https://www.mysite.com": Secret("https://www.mysite.com","username","password"),
+            "https://www.othersite.com": Secret("https://www.othersite.com", "username", "password"),
+            "yoursite": Secret("yoursite", "username", "password")
+        }
+        SecretFileManager.load = Mock(return_value= secret_dictionary)
+
+        results = SecretManager.search("site")
+        self.assertEqual(len(results), 3)
+
+        results = SecretManager.search("mysite")
+        self.assertEqual(len(results), 1)
+
+        results = SecretManager.search("https")
+        self.assertEqual(len(results), 2)
+
+        results = SecretManager.search("sete")
+        self.assertEqual(len(results), 0, "Non existed keyword")
+
 
 if __name__ == '__main__':
     unittest.main()

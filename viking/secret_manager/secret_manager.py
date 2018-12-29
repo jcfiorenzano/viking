@@ -1,6 +1,4 @@
 import viking.file_manager.secret_file_manager as SecretFileManager
-import difflib
-from urllib.parse import urlparse
 
 def add(secret):
     if secret is None:
@@ -33,4 +31,5 @@ def get_all():
 
 def search(site):
     secrets_dictionary = SecretFileManager.load()
-    return difflib.get_close_matches(site, secrets_dictionary.keys())
+    return [key for key in secrets_dictionary.keys() if key.find(site) != -1]
+    
