@@ -1,4 +1,0 @@
-#!/bin/bash
-
-rm -r dist/ build/
-pyinstaller viking/main.py --name viking

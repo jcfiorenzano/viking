@@ -14,3 +14,6 @@ viking = {editable = true, path = "."}
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+build="pyinstaller viking/main.py --name viking --hidden-import jsonpickle"
