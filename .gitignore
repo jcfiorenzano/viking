@@ -19,3 +19,4 @@ src/security/__pycache__/
 tests/e2e/__pycache__/
 viking-env/
 viking.egg-info
+viking.spec
