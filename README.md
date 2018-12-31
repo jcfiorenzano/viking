@@ -10,5 +10,4 @@ Command line interface tool to manage passwords
 - Delete password: ```viking -d www.mysite.com ```
 
 ## How to contribute
-There is a todo file with the list of features to add, you can pick one and start working on it or just suggest new features, to report issues please use the issue tracker. To run the application locally is necessary to create a virtual environment and activate it, the virtual environment should be called "viking-env" in that way it is going to be ignored.
-[How to create a virtual environment](https://docs.python.org/3/tutorial/venv.html)
+The list of pending features are in a file called **todo**, feel free to grab one . To suggest a new feature create a pull request modifying this file and describe the feature in the description of the pull request. To report new issues use the issue tracker instead. 
