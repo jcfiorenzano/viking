@@ -4,26 +4,6 @@ import viking.handle.handle_factory as HandleFactory
 from viking.exceptions.exception import UserNotAuthenticateException
 from viking.exceptions.exception import WrongPasswordException
 
-'''
-COMMANDS:
-    Add
-        This creates a new relation between a password, username and site
-        the site argument does not require to be a URL, it could be just a name
-        the command is:
-        
-        -a site username
-        
-        
-    Show
-        Given a site it shows the relation username password for that site
-        if note site is passed it shows all sites registered, the user has
-        to provide the key to execute this command, the command definition is:
-        -s [site]
-    Delete
-        Remove an entry of the database
-        -d site
-'''
-
 
 def parsed_arguments(argv):
     parser = argparse.ArgumentParser(description="Password manager tool")
