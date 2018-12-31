@@ -1,7 +1,7 @@
 # Viking
 Command line interface tool to manage passwords
 
-## Features
+## Usage
 - Add new password:
 ```viking  -a www.mysite.com myusername```
 - Show a specific password:
