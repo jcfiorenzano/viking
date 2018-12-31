@@ -35,7 +35,8 @@ def parsed_arguments(argv):
 
     parser.add_argument("-s", "--show",
                         dest="show",
-                        nargs=1,
+                        nargs='?',
+                        const=[],
                         metavar='[site]',
                         help='Show the information of a given site, if not site is provided then show all')
 
@@ -66,6 +67,7 @@ if __name__ == "__main__":
     # main("-a site username".split())
     # main("-s site".split())
     # main("-s si".split())
+    # main("-s".split())
     # main("-d site".split())
     # main("-s site".split())
     # main("-a site2 username2".split())

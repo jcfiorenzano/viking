@@ -8,7 +8,7 @@ class ShowCommandHandle(HandleBase):
 
     def handle(self):
         self.authenticate()
-        site_url = self.show_arguments[0]
+        site_url = self.show_arguments[0] if len(self.show_arguments) > 0 else None
 
         if site_url is not None:
             self.__show_secret_info(site_url)
@@ -40,6 +40,6 @@ class ShowCommandHandle(HandleBase):
     def __show_all_secrets(self):
         secrets = SecretManager.get_all()
         if len(secrets) == 0:
-            print("There is no passwords stored for that site.")
+            print("There is no passwords stored.")
         for secret in secrets:
              print("site: {0} username: {1} password: {2}".format(secret.site, secret.username, secret.password))
