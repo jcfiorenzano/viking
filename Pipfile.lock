@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "97b770e464cdea3c1bd9dda5eadcb48c2e5ffd32ffb9f5e558a193d5169d2a8b"
+            "sha256": "dddc3bc2925f4c0bcd019ed52f787e1649e09ba2a29aaa6df935f199827f95f5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -227,6 +227,10 @@
             ],
             "markers": "python_version != '3.1.*' and python_version != '3.0.*' and python_version >= '2.6'",
             "version": "==1.12.0"
+        },
+        "viking": {
+            "editable": true,
+            "path": "."
         },
         "wrapt": {
             "hashes": [

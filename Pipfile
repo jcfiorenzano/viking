@@ -10,6 +10,7 @@ jsonpickle   = "==1.0"
 
 [dev-packages]
 pylint = "*"
+viking = {editable = true, path = "."}
 
 [requires]
 python_version = "3.7"
