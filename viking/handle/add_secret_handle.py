@@ -1,3 +1,4 @@
+import viking.util.helper_function as utils
 import viking.secret_manager.secret_manager as SecretManager
 from viking.handle.handle_base import HandleBase
 from viking.model.secret import Secret
@@ -23,7 +24,7 @@ class AddCommandHandle(HandleBase):
     def __get_security_questions(self):
         user_answer = ""
         while(user_answer.lower() not in ["n","y"]):
-            user_answer = input("Do you want to register security questions for this site? [Y]es, [N]o ")
+            user_answer = input(utils.create_yes_no_question("Do you want to register security questions for this site?"))
         
         security_questions = []
         if user_answer.lower() == "y":
@@ -35,13 +36,13 @@ class AddCommandHandle(HandleBase):
                 security_questions.append((question, answer))
                 user_answer = ""
                 while(user_answer.lower() not in ["n","y"]):
-                    user_answer = input("Do you want to continue registering questions? [Y]es, [N]o ")
+                    user_answer = input(utils.create_yes_no_question("Do you want to continue registering questions?"))
         return security_questions
     
     def __is_user_updating(self):
         user_answer = ""
         while(user_answer.lower() not in ["n","y"]):
-            user_answer = input("Your already have stored a secret for this site, do you want to update it? [Y]es, [N]o ")
+            user_answer = input(utils.create_yes_no_question("Your already have stored a secret for this site, do you want to update it?"))
 
         return user_answer.lower() == "y"
 
