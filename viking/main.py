@@ -1,5 +1,6 @@
 import sys
 import argparse
+import colorama
 import viking.handle.handle_factory as HandleFactory
 from viking.exceptions.exception import UserNotAuthenticateException
 from viking.exceptions.exception import WrongPasswordException
@@ -30,6 +31,7 @@ def parsed_arguments(argv):
 
 
 def main(argv):
+    colorama.init()
     try:
         parsed_object = parsed_arguments(argv)
 
@@ -37,9 +39,11 @@ def main(argv):
         command_handle.handle()
 
     except WrongPasswordException:
-        print("Password incorrect")
+        print("{0}Password incorrect{1}".format(colorama.Fore.RED, colorama.Fore.RESET))
     except UserNotAuthenticateException:
-        print("Fail to authenticate the user")
+        print("{0}Fail to authenticate the user{1}".format(colorama.Fore.RED, colorama.Fore.RESET))
+    finally:
+        colorama.deinit()
 
 
 if __name__ == "__main__":
