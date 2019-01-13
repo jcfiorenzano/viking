@@ -7,6 +7,7 @@ name = "pypi"
 cryptography = "==2.3.1"
 pyinstaller  = "*"
 jsonpickle   = "==1.0"
+simplejson = "*"
 
 [dev-packages]
 pylint = "*"
@@ -16,4 +17,4 @@ viking = {editable = true, path = "."}
 python_version = "3.7"
 
 [scripts]
-build="pyinstaller viking/main.py --name viking --hidden-import jsonpickle"
+build="pyinstaller viking/main.py --name viking --hidden-import simplejson"
