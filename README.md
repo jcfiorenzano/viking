@@ -9,7 +9,7 @@ Command line interface tool to manage passwords
 - Show all: ``` viking -s ```
 - Delete password: ```viking -d www.mysite.com ```
 
-To look for a site is not necessary to look for all the sites saved or to type the exact name of the site, you just can type a part of it like ```viking -s mysite``` and is going to return all sites that contains *mysite* in its name
+To look for a site is not necessary to look for all the sites saved or to type the exact name of the site, you just can type a part of it like ```viking -s mysite``` and is going to return all sites that contains *mysite* in its nme
 
 ## How to contribute
 The list of pending features are in a file called **todo**, feel free to grab one, to suggest a new feature create a pull request modifying this file and describe the feature in the description of the pull request. To report new issues use the issue tracker instead. 
