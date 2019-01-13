@@ -4,6 +4,7 @@ import colorama
 import viking.handle.handle_factory as HandleFactory
 from viking.exceptions.exception import UserNotAuthenticateException
 from viking.exceptions.exception import WrongPasswordException
+from viking.exceptions.exception import SiteNotFound
 
 
 def parsed_arguments(argv):
@@ -39,9 +40,11 @@ def main(argv):
         command_handle.handle()
 
     except WrongPasswordException:
-        print("{0}Password incorrect{1}".format(colorama.Fore.RED, colorama.Fore.RESET))
+        print("{0}Password incorrect{1}.".format(colorama.Fore.RED, colorama.Fore.RESET))
     except UserNotAuthenticateException:
-        print("{0}Fail to authenticate the user{1}".format(colorama.Fore.RED, colorama.Fore.RESET))
+        print("{0}Fail to authenticate the user{1}.".format(colorama.Fore.RED, colorama.Fore.RESET))
+    except SiteNotFound as e:
+        print("{0}The site {2} was not found.{1}".format(colorama.Fore.RED, colorama.Fore.RESET, e))
     finally:
         colorama.deinit()
 

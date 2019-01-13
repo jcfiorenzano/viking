@@ -33,7 +33,7 @@ def delete(site):
     if site in secrets:
         del (secrets[site])
     else:
-        raise SiteNotFound
+        raise SiteNotFound(site)
 
     __save_dictionary(secrets)
 
