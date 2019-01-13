@@ -4,12 +4,12 @@ from viking.handle.handle_base import HandleBase
 
 
 class ShowCommandHandle(HandleBase):
-    def __init__(self, show_arguments):
-        self.show_arguments = show_arguments
+    def __init__(self, show_argument):
+        self.show_argument = show_argument
 
     def handle(self):
         self.authenticate()
-        site_url = self.show_arguments[0] if len(self.show_arguments) > 0 else None
+        site_url = self.show_argument if len(self.show_argument) > 0 else None
 
         if site_url is not None:
             self.__show_secret_info(site_url)

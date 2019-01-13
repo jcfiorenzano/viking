@@ -2,7 +2,7 @@ import getpass
 import os
 import viking.config as config
 import viking.security.security_manager as SecurityManager
-
+from colorama import Fore
 
 class HandleBase:
 
@@ -25,7 +25,7 @@ class HandleBase:
             confirm_password = getpass.getpass(prompt="Confirm Password")
 
             if password != confirm_password:
-                print("Password does not match")
+                print("{0}Password does not match{1}".format(Fore.RED, Fore.RESET))
                 password = None
 
         SecurityManager.create_account(password)
