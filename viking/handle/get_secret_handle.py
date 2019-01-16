@@ -19,24 +19,32 @@ class ShowCommandHandle(HandleBase):
 
     def __show_secret_info(self, site_url):
         secret = SecretManager.get(site_url)
-        if secret is None:
+        if secret is not None:
+            self.__print_secret_info(secret)
+            return
+        similar_sites = SecretManager.search(site_url)
+        if len(similar_sites) == 0:
             print("{0}We couldn't find a match for the site:{1} {2}".format(Fore.RED, Fore.RESET, site_url))
-            similar_sites = SecretManager.search(site_url)
-            if len(similar_sites) > 0:
-                print("{0}Closer results are:{1}".format(Fore.GREEN, Fore.RESET))
-                for site in similar_sites:
-                    print(site)
-                print
+        elif len(similar_sites) == 1:
+            secret = SecretManager.get(similar_sites[0])
+            self.__print_secret_info(secret)
         else:
-            print("{0}Site:{1} {2}".format(Fore.GREEN, Fore.RESET, secret.site))
-            print("{0}Username:{1} {2}".format(Fore.GREEN, Fore.RESET, secret.username))
-            print("{0}Password:{1} {2}".format(Fore.GREEN, Fore.RESET, secret.password))
-            if secret.security_questions is not None and len(secret.security_questions) != 0:
-                print("{0}Security Questions:{1}".format(Fore.GREEN, Fore.RESET))
-                for sq in secret.security_questions:
-                    print("{0}Q:{1} {2}".format(Fore.GREEN, Fore.RESET, sq[0]))
-                    print("{0}A:{1} {2}".format(Fore.GREEN, Fore.RESET, sq[1]))
-                    print()
+            print("{0}Which one do you mean?{1}".format(Fore.GREEN, Fore.RESET))
+            for site in similar_sites:
+                print("- "+site)
+            print
+        
+
+    def __print_secret_info(self, secret):
+        print("{0}Site:{1} {2}".format(Fore.GREEN, Fore.RESET, secret.site))
+        print("{0}Username:{1} {2}".format(Fore.GREEN, Fore.RESET, secret.username))
+        print("{0}Password:{1} {2}".format(Fore.GREEN, Fore.RESET, secret.password))
+        if secret.security_questions is not None and len(secret.security_questions) != 0:
+            print("{0}Security Questions:{1}".format(Fore.GREEN, Fore.RESET))
+            for sq in secret.security_questions:
+                print("{0}Q:{1} {2}".format(Fore.GREEN, Fore.RESET, sq[0]))
+                print("{0}A:{1} {2}".format(Fore.GREEN, Fore.RESET, sq[1]))
+                print()
 
     def __show_all_secrets(self):
         secrets = SecretManager.get_all()
