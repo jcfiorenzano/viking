@@ -11,13 +11,14 @@ class AddCommandHandle(HandleBase):
     def handle(self):
         self.authenticate()
         site_url = self.add_arguments[0]
-        username = self.add_arguments[1]
-        password = input("Insert password: ")
-        security_questions = self._get_security_questions()
         
         if SecretManager.get(site_url) is not None and not self._is_user_updating() :
             return
 
+        username = self.add_arguments[1]
+        password = input("Insert password: ")
+        security_questions = self._get_security_questions()
+        
         secret = Secret(site_url, username, password, security_questions)
         SecretManager.add(secret)
     
