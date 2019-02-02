@@ -13,15 +13,14 @@ def info_format(message):
     return "{0}{1}{2}".format(Fore.GREEN, message, Fore.RESET)
 
 def print_data_table(headers, data):
-    column_dimensions = [0] * len(headers)
+    column_dimensions = [len(header) for header in headers]
     extra_space = 5
 
     for column_index in range(0, len(data[0])):
-        max_len = 0 
         for row_index in range(0, len(data)):
-            max_len = max(max_len, len(data[row_index][column_index]))
-        column_dimensions[column_index] = max_len + extra_space
-    
+            column_dimensions[column_index] = max(column_dimensions[column_index], len(data[row_index][column_index]))
+        column_dimensions[column_index] += extra_space
+
     table_width = sum(column_dimensions)
     separator = '-' * table_width
 

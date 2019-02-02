@@ -38,16 +38,10 @@ class ShowCommandHandle(HandleBase):
         self._print_secret_info(secret)
 
     def _print_secret_info(self, secret):
-        print(print_utils.info_format("Site: ")+secret.site)
-        print(print_utils.info_format("Username: ")+secret.username)
-        print(print_utils.info_format("Password: ")+secret.password)
+        print_utils.print_data_table(["SITE", "USERNAME", "PASSWORD"],[[secret.site, secret.username, secret.password]])
         if secret.security_questions is not None and len(secret.security_questions) != 0:
-            print(print_utils.info_format("Security Questions:"))
-            for sq in secret.security_questions:
-                print(print_utils.info_format("Q: ")+sq[0])
-                print(print_utils.info_format("A: ")+sq[1])
-                print()
-
+            print_utils.print_data_table(["QUESTION", "ANSWER"],[[sq[0],sq[1]] for sq in secret.security_questions])
+            
     def _show_all_secrets(self):
         secrets = SecretManager.get_all()
         if len(secrets) == 0:
