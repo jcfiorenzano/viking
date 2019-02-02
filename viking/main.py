@@ -9,6 +9,8 @@ from viking.exceptions.exception import SiteNotFound
 
 
 def parsed_arguments(argv):
+    if argv is None or len(argv) == 0:
+        argv = ["-s"]
     parser = argparse.ArgumentParser(description="Password manager tool")
     parser.add_argument("-a", "--add",
                         dest="add",
@@ -21,7 +23,7 @@ def parsed_arguments(argv):
                         nargs='?',
                         const=[],
                         metavar='[site]',
-                        help='Show the information of a given site, if not site is provided then show all')
+                        help='Show the information of a given site with its questions if any, if not site is provided then show all sites registered except for questions')
 
     parser.add_argument("-d", "--delete",
                         dest="delete",
