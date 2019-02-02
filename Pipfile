@@ -10,7 +10,6 @@ jsonpickle   = "==1.0"
 simplejson = "*"
 colorama = "*"
 inquirer = "*"
-elevate = "*"
 
 [dev-packages]
 pylint = "*"
