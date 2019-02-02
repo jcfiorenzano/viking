@@ -1,5 +1,5 @@
 import viking.secret_manager.secret_manager as SecretManager
-import viking.util.helper_function as utils
+import viking.util.print_utils as utils
 from viking.handle.handle_base import HandleBase
 
 
@@ -13,7 +13,7 @@ class DeleteCommandHandle(HandleBase):
 
         user_answer = ""
         while(user_answer.lower() not in ["n","y"]):
-            user_answer = input(utils.create_warning_message(utils.create_yes_no_question("You are about to remove secrets for the site {0}, do you want to continue?".format(site_url))))
+            user_answer = input(utils.warning_format(utils.create_yes_no_question("You are about to remove secrets for the site {0}, do you want to continue?".format(site_url))))
         
         if user_answer.lower() == 'y':
             SecretManager.delete(site_url)

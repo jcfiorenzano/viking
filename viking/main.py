@@ -2,6 +2,7 @@ import sys
 import argparse
 import colorama
 import viking.handle.handle_factory as HandleFactory
+import viking.util.print_utils as print_utils
 from viking.exceptions.exception import UserNotAuthenticateException
 from viking.exceptions.exception import WrongPasswordException
 from viking.exceptions.exception import SiteNotFound
@@ -40,21 +41,21 @@ def main(argv):
         command_handle.handle()
 
     except WrongPasswordException:
-        print("{0}Password incorrect{1}.".format(colorama.Fore.RED, colorama.Fore.RESET))
+        print(print_utils.error_format("Password incorrect"))
     except UserNotAuthenticateException:
-        print("{0}Fail to authenticate the user{1}.".format(colorama.Fore.RED, colorama.Fore.RESET))
+        print(print_utils.error_format("Fail to authenticate the user."))
     except SiteNotFound as e:
-        print("{0}The site {2} was not found.{1}".format(colorama.Fore.RED, colorama.Fore.RESET, e))
+        print(print_utils.error_format("The site {0} was not found.".format(e)))
     finally:
         colorama.deinit()
 
 
 if __name__ == "__main__":
-     main(sys.argv[1:])
+    # main(sys.argv[1:])
     # main("-a site username".split())
     # main("-s site".split())
     # main("-s si".split())
-    # main("-s".split())
+    main("-s".split())
     # main("-d site".split())
     # main("-s site".split())
     # main("-a site2 username2".split())

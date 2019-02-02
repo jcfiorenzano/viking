@@ -1,4 +1,4 @@
-import viking.util.helper_function as utils
+import viking.util.print_utils as utils
 import viking.secret_manager.secret_manager as SecretManager
 from viking.handle.handle_base import HandleBase
 from viking.model.secret import Secret
