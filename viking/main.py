@@ -1,6 +1,8 @@
 import sys
+import os
 import argparse
 import colorama
+import elevate
 import viking.handle.handle_factory as HandleFactory
 import viking.util.print_utils as print_utils
 from viking.exceptions.exception import UserNotAuthenticateException
@@ -36,6 +38,10 @@ def parsed_arguments(argv):
 
 def main(argv):
     colorama.init()
+    
+    if not _is_root():
+        elevate.elevate()
+        
     try:
         parsed_object = parsed_arguments(argv)
 
@@ -51,6 +57,8 @@ def main(argv):
     finally:
         colorama.deinit()
 
+def _is_root():
+    return os.getuid() == 0
 
 if __name__ == "__main__":
     main(sys.argv[1:])
