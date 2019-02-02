@@ -13,16 +13,16 @@ class ShowCommandHandle(HandleBase):
         site_url = self.show_argument if len(self.show_argument) > 0 else None
 
         if site_url is not None:
-            self.__show_secret_info(site_url)
+            self._show_secret_info(site_url)
         else:
-            self.__show_all_secrets()
+            self._show_all_secrets()
 
 
-    def __show_secret_info(self, site_url):
+    def _show_secret_info(self, site_url):
         secret = SecretManager.get(site_url)
 
         if secret is not None:
-            self.__print_secret_info(secret)
+            self._print_secret_info(secret)
             return
 
         similar_sites = SecretManager.search(site_url)
@@ -41,9 +41,9 @@ class ShowCommandHandle(HandleBase):
             answers = inquirer.prompt(questions)
             secret = SecretManager.get(answers[answer_key])
 
-        self.__print_secret_info(secret)
+        self._print_secret_info(secret)
 
-    def __print_secret_info(self, secret):
+    def _print_secret_info(self, secret):
         print(print_utils.info_format("Site: ")+secret.site)
         print(print_utils.info_format("Username: ")+secret.username)
         print(print_utils.info_format("Password: ")+secret.password)
@@ -54,7 +54,7 @@ class ShowCommandHandle(HandleBase):
                 print(print_utils.info_format("A: ")+sq[1])
                 print()
 
-    def __show_all_secrets(self):
+    def _show_all_secrets(self):
         secrets = SecretManager.get_all()
         if len(secrets) == 0:
             print(print_utils.error_format("There is no passwords stored."))

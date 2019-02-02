@@ -8,17 +8,17 @@ import viking.util.print_utils as print_utils
 class HandleBase:
 
     def authenticate(self):
-        if self.__exist_account():
+        if self._exist_account():
             password = getpass.getpass()
             return SecurityManager.authenticate(password)
         else:
-            self.__create_account()
+            self._create_account()
 
-    def __exist_account(self):
+    def _exist_account(self):
         return os.path.exists(config.ACCOUNT_FILE_PATH)
 
 
-    def __create_account(self):
+    def _create_account(self):
         print("Creating new account")
         password = None
         while password is None:

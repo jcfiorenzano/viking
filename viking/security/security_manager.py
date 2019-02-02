@@ -12,34 +12,34 @@ from viking.model.account import Account
 from viking.exceptions.exception import UserNotAuthenticateException
 from viking.exceptions.exception import WrongPasswordException
 
-__key = None
-__BYTE_ENCODING_FORMAT = "utf8"
+_key = None
+_BYTE_ENCODING_FORMAT = "utf8"
 
 
 def create_account(password):
     salt = os.urandom(config.SALT_SIZE)
-    password_hash = __get_password_hash(password, salt)
+    password_hash = _get_password_hash(password, salt)
     accountRepository.save_account(Account(password_hash, salt))
-    global __key
-    __key = __get_derivaded_key(password)
+    global _key
+    _key = _get_derivaded_key(password)
 
 
 def authenticate(password):
-    if __is_password_valid(password):
-        global __key
-        __key = __get_derivaded_key(password)
+    if _is_password_valid(password):
+        global _key
+        _key = _get_derivaded_key(password)
     else:
         raise WrongPasswordException()
 
 
 def encrypt(plain_message):
-    fernet = Fernet(__get_key())
-    return fernet.encrypt(bytes(plain_message, __BYTE_ENCODING_FORMAT))
+    fernet = Fernet(_get_key())
+    return fernet.encrypt(bytes(plain_message, _BYTE_ENCODING_FORMAT))
 
 
 def decrypt(encrypted_message):
-    fernet = Fernet(__get_key())
-    return bytes.decode(fernet.decrypt(encrypted_message), __BYTE_ENCODING_FORMAT)
+    fernet = Fernet(_get_key())
+    return bytes.decode(fernet.decrypt(encrypted_message), _BYTE_ENCODING_FORMAT)
 
 
 def generate_password():
@@ -74,7 +74,7 @@ def generate_password():
     return "".join(password)
 
 
-def __get_derivaded_key(password):
+def _get_derivaded_key(password):
     account = accountRepository.load_account()
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),
                      length=32,
@@ -84,24 +84,24 @@ def __get_derivaded_key(password):
     return base64.urlsafe_b64encode(kdf.derive(bytes(password, "utf8")))
 
 
-def __is_authenticated():
-    return __key is not None
+def _is_authenticated():
+    return _key is not None
 
 
-def __is_password_valid(password):
+def _is_password_valid(password):
     account = accountRepository.load_account()
-    password_hash = __get_password_hash(password, account.salt)
+    password_hash = _get_password_hash(password, account.salt)
     return account.password_hash == password_hash
 
 
-def __get_password_hash(password, salt):
+def _get_password_hash(password, salt):
     hash_object = hashlib.sha3_512()
     hash_object.update(password.encode())
     hash_object.update(salt)
     return hash_object.digest()
 
 
-def __get_key():
-    if __is_authenticated():
-        return __key
+def _get_key():
+    if _is_authenticated():
+        return _key
     raise UserNotAuthenticateException()

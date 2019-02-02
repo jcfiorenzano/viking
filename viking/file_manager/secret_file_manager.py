@@ -11,7 +11,7 @@ _SERIALIZE_PICKLE_PROTOCOL = 3
 def save(secret):
     secret_dictionary = load()
     secret_dictionary[secret.site] = secret
-    __save_dictionary(secret_dictionary)
+    _save_dictionary(secret_dictionary)
 
 
 def load():
@@ -35,10 +35,10 @@ def delete(site):
     else:
         raise SiteNotFound(site)
 
-    __save_dictionary(secrets)
+    _save_dictionary(secrets)
 
 
-def __save_dictionary(secret_dictionary):
+def _save_dictionary(secret_dictionary):
     encripted_data = SecurityManager.encrypt(jsonpickle.encode(secret_dictionary))
     with open(config.VIKING_FILE_PATH, 'wb') as passwordFile:
         pickle.dump(encripted_data, passwordFile, _SERIALIZE_PICKLE_PROTOCOL)

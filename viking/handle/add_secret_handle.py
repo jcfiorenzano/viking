@@ -13,15 +13,15 @@ class AddCommandHandle(HandleBase):
         site_url = self.add_arguments[0]
         username = self.add_arguments[1]
         password = input("Insert password: ")
-        security_questions = self.__get_security_questions()
+        security_questions = self._get_security_questions()
         
-        if SecretManager.get(site_url) is not None and not self.__is_user_updating() :
+        if SecretManager.get(site_url) is not None and not self._is_user_updating() :
             return
 
         secret = Secret(site_url, username, password, security_questions)
         SecretManager.add(secret)
     
-    def __get_security_questions(self):
+    def _get_security_questions(self):
         user_answer = ""
         while(user_answer.lower() not in ["n","y"]):
             user_answer = input(utils.create_yes_no_question("Do you want to register security questions for this site?"))
@@ -39,7 +39,7 @@ class AddCommandHandle(HandleBase):
                     user_answer = input(utils.create_yes_no_question("Do you want to continue registering questions?"))
         return security_questions
     
-    def __is_user_updating(self):
+    def _is_user_updating(self):
         user_answer = ""
         while(user_answer.lower() not in ["n","y"]):
             user_answer = input(utils.create_yes_no_question("Your already have stored a secret for this site, do you want to update it?"))
