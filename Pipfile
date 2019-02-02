@@ -9,6 +9,7 @@ pyinstaller  = "*"
 jsonpickle   = "==1.0"
 simplejson = "*"
 colorama = "*"
+inquirer = "*"
 
 [dev-packages]
 pylint = "*"

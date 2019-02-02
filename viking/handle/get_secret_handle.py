@@ -1,3 +1,4 @@
+import inquirer
 from colorama import Fore
 import viking.secret_manager.secret_manager as SecretManager
 import viking.util.print_utils as print_utils
@@ -19,21 +20,28 @@ class ShowCommandHandle(HandleBase):
 
     def __show_secret_info(self, site_url):
         secret = SecretManager.get(site_url)
+
         if secret is not None:
             self.__print_secret_info(secret)
             return
+
         similar_sites = SecretManager.search(site_url)
+
         if len(similar_sites) == 0:
-            print(print_utils.info_format("We couldn't find a match for the site: {0}".format(site_url)))
-        elif len(similar_sites) == 1:
-            secret = SecretManager.get(similar_sites[0])
-            self.__print_secret_info(secret)
-        else:
-            print(print_utils.info_format("Which one do you mean?"))
-            for site in similar_sites:
-                print("- "+site)
-            print
+            print(print_utils.error_format("We couldn't find a match for the site: {0}".format(site_url)))
+            return
         
+        if len(similar_sites) == 1:
+            secret = SecretManager.get(similar_sites[0])
+        else:
+            answer_key = 'similar_sites'
+            questions = [
+                inquirer.List(answer_key, message='Which one do you mean', choices=similar_sites)
+            ]
+            answers = inquirer.prompt(questions)
+            secret = SecretManager.get(answers[answer_key])
+
+        self.__print_secret_info(secret)
 
     def __print_secret_info(self, secret):
         print(print_utils.info_format("Site: ")+secret.site)
