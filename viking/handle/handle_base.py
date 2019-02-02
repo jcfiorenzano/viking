@@ -1,6 +1,5 @@
 import getpass
 import os
-from colorama import Fore
 import viking.config as config
 import viking.security.security_manager as SecurityManager
 import viking.util.print_utils as print_utils
@@ -19,7 +18,7 @@ class HandleBase:
 
 
     def _create_account(self):
-        print("Creating new account")
+        print(print_utils.info_format("Creating new account"))
         password = None
         while password is None:
             password = getpass.getpass(prompt="Create Password")

@@ -38,3 +38,11 @@ def print_data_table(headers, data):
             print(string_format.format(data[i][j]), end="")
         print()
     print()
+
+def print_option_picker(message, options):
+    answer_key = 'option_picker'
+    questions = [
+        inquirer.List(answer_key, message=message, choices=options)
+    ]
+    answers = inquirer.prompt(questions)
+    return answers[answer_key]

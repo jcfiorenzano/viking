@@ -1,5 +1,3 @@
-import inquirer
-from colorama import Fore
 import viking.secret_manager.secret_manager as SecretManager
 import viking.util.print_utils as print_utils
 from viking.handle.handle_base import HandleBase
@@ -34,12 +32,8 @@ class ShowCommandHandle(HandleBase):
         if len(similar_sites) == 1:
             secret = SecretManager.get(similar_sites[0])
         else:
-            answer_key = 'similar_sites'
-            questions = [
-                inquirer.List(answer_key, message='Which one do you mean', choices=similar_sites)
-            ]
-            answers = inquirer.prompt(questions)
-            secret = SecretManager.get(answers[answer_key])
+            selected_secret = print_utils.print_option_picker(message='Which one do you mean', options=similar_sites)
+            secret = SecretManager.get(selected_secret)
 
         self._print_secret_info(secret)
 
