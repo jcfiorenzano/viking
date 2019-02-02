@@ -1,5 +1,8 @@
+version 1.0:
+    # Todo: Allow user to change account password
+    # Todo: Questions can not be empty
+    # Todo: Viking needs elevated privileges to be executed
+
 # Todo: Create a command to get the version number
 # Todo: provide tools to let user know best practices with password, if it is weak if it is vulnerable
 # Todo: Support multiple secrets for the same site
-# Todo: Allow user to change account password
-# Todo: Questions can not be empty
