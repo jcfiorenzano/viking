@@ -11,9 +11,7 @@ class DeleteCommandHandle(HandleBase):
         self.authenticate()
         site_url = self.arguments[0]
 
-        user_answer = ""
-        while(user_answer.lower() not in ["n","y"]):
-            user_answer = input(utils.warning_format(utils.create_yes_no_question("You are about to remove secrets for the site {0}, do you want to continue?".format(site_url))))
+        user_confirm = utils.ask_yes_no_question("You are about to remove secrets for the site {0}, do you want to continue?".format(site_url))
         
-        if user_answer.lower() == 'y':
+        if user_confirm:
             SecretManager.delete(site_url)

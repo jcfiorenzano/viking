@@ -1,10 +1,10 @@
+import inquirer
 from colorama import Fore
 
-def create_yes_no_question(question):
-    return question +" [Y]es, [N]o: "
-
-def warning_format(message):
-    return "{0}Warning: {1}{2}".format(Fore.YELLOW, message, Fore.RESET)
+def ask_yes_no_question(question):
+    questions = [inquirer.Confirm("question", message=question)]
+    answer = inquirer.prompt(questions)
+    return answer["question"]
 
 def error_format(message):
     return "{0}{1}{2}".format(Fore.RED, message, Fore.RESET)
